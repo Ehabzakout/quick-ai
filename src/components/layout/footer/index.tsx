@@ -6,7 +6,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="mt-20 mb-5">
+    <footer className="mb-5">
       <div className="mb-3 grid grid-cols-1 gap-5 px-10 md:grid-cols-3">
         <article className="text-sm leading-4 text-zinc-400">
           <Logo />
@@ -23,7 +23,7 @@ function Footer() {
           <button>Contact Us</button>
           <button>Privacy Policy</button>
         </div>
-        <div className="text-center">
+        <div className="text-center md:text-start">
           <h5 className="mx-auto my-2 font-medium">Subscribe to our newsletter</h5>
           <p className="text-sm text-zinc-400">
             The Latest news, articles, and resources, sent to your inbox weekly

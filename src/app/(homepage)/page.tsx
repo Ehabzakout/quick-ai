@@ -7,7 +7,7 @@ export default function page() {
   return (
     <div>
       <HeroSection />
-      <div className="mt-16 flex flex-col items-center justify-center space-y-20 px-3 md:px-10">
+      <div className="mt-16 mb-20 flex flex-col items-center justify-center space-y-20 px-3 md:px-10">
         <AiTools />
         <LovedBy />
         <BillingPlans />

@@ -17,7 +17,7 @@ function HeroSection() {
           generate images, and enhance your workflow.
         </p>
         <div className="my-5 flex flex-col items-center justify-center gap-8 md:flex-row">
-          <Link href="/ai" className={buttonVariants({ className: "w-44" })}>
+          <Link href="/ai/dashboard" className={buttonVariants({ className: "w-44" })}>
             Start Creating Now
           </Link>
           <Link
