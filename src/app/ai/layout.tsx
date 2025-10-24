@@ -7,7 +7,7 @@ function AiLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AiSidebar />
-      <main className="w-full bg-blue-50">{children}</main>
+      <main className="w-full bg-blue-50 p-7">{children}</main>
     </SidebarProvider>
   );
 }

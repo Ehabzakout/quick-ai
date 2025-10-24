@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
 
-import { Protect, useUser, UserProfile, useClerk } from "@clerk/nextjs";
+import { Protect, useUser, useClerk } from "@clerk/nextjs";
 import { Home, LogOutIcon, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,7 +36,7 @@ function AiSidebar() {
     <Sidebar collapsible="none" className="min-h-screen w-1/3 bg-white px-7 pt-3">
       <SidebarContent>
         <SidebarHeader className="flex flex-col items-center">
-          <div className="size-16 overflow-hidden rounded-full bg-gradient-to-b from-[#3588F2] to-[#0BB0D7]">
+          <div className="from-blue to-green size-16 overflow-hidden rounded-full bg-gradient-to-b">
             {user?.hasImage ? (
               <Image
                 src={user.imageUrl}
@@ -70,7 +70,7 @@ function AiSidebar() {
             }}
             className="flex flex-1 cursor-pointer items-center gap-3 rounded-lg px-3 py-1 hover:bg-zinc-100"
           >
-            <div className="flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-[#4B74F4] to-[#8540EC]">
+            <div className="from-blue to-purple flex size-10 items-center justify-center rounded-full bg-gradient-to-br">
               <User color="white" size={25} />
             </div>
             <div>

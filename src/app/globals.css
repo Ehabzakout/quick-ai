@@ -8,6 +8,20 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-blue: #3588f2;
+  --color-green: #0bb0d7;
+  --color-pink: #ff61c5;
+  --color-purple: #9e53ee;
+  --color-light-purple: #c341f6;
+  --color-dark-purple: #8e37eb;
+  --color-dark-green: #00ad25;
+  --color-light-green: #04ff50;
+  --color-light-green-100: #00da83;
+  --color-light-green-200: #009bb3;
+  --color-light-orange: #f6ab41;
+  --color-dark-orang: #ff4938;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
