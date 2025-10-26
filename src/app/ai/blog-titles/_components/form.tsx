@@ -2,8 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Hash, Sparkles, SquarePen } from "lucide-react";
-import React, { FormEventHandler, useState } from "react";
+import { useAuth } from "@clerk/clerk-react";
+
+import { Hash, Sparkles } from "lucide-react";
+import React, { FormEventHandler, useEffect, useState } from "react";
 
 export default function WriteArticleForm() {
   const options = [
@@ -20,6 +22,12 @@ export default function WriteArticleForm() {
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
   };
+
+  const { getToken } = useAuth();
+  useEffect(() => {
+    getToken().then((token) => console.log(token));
+  }, []);
+
   return (
     <article>
       <header className="flex items-center gap-3">

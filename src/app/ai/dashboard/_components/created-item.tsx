@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import React, { useEffect, useRef, useState } from "react";
-
 function CreatedItem({
   title,
   text,
