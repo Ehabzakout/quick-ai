@@ -1,17 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sparkles, Image, Scissors, Eraser } from "lucide-react";
-import React, { FormEventHandler, useRef, useState } from "react";
+import { Sparkles, Scissors } from "lucide-react";
+import React from "react";
+import useRemoveObject from "../hooks/use-remove-object";
 
 export default function WriteArticleForm() {
-  const uploadedImg = useRef<HTMLInputElement | null>(null);
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    console.log(uploadedImg.current?.files);
-  };
-  const [uploaded, setUploaded] = useState<FileList | null>(null);
-
+  const { uploaded, onSubmit, setUploaded, uploadedImg } = useRemoveObject();
   return (
     <article>
       <header className="flex items-center gap-3">
