@@ -2,32 +2,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@clerk/clerk-react";
 
 import { Hash, Sparkles } from "lucide-react";
-import React, { FormEventHandler, useEffect, useState } from "react";
+import React from "react";
+import useWriteTitle from "../hooks/use-write-article";
+import Loading from "../../_components/loading";
+import ErrorMessage from "../../_components/error-message";
 
 export default function WriteArticleForm() {
-  const options = [
-    "General",
-    "Technology",
-    "Business",
-    "Health",
-    "Lifestyle",
-    "Education",
-    "Travel",
-    "Food",
-  ];
-  const [selected, setSelected] = useState(options[0]);
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-  };
-
-  const { getToken } = useAuth();
-  useEffect(() => {
-    getToken().then((token) => console.log(token));
-  }, []);
-
+  const { onSubmit, options, selected, setSelected, error, isPending, article, setArticle } =
+    useWriteTitle();
   return (
     <article>
       <header className="flex items-center gap-3">
@@ -36,7 +20,13 @@ export default function WriteArticleForm() {
       </header>
       <form onSubmit={onSubmit} className="mt-5">
         <label className="font-medium">Keyword</label>
-        <Input placeholder="The future of artificial intelligence" className="mt-2 mb-4" required />
+        <Input
+          placeholder="The future of artificial intelligence"
+          value={article}
+          onChange={(e) => setArticle(e.target.value)}
+          className="mt-2 mb-4"
+          required
+        />
         <label className="text-sm">Category</label>
         <div className="mt-2 flex flex-wrap gap-3">
           {options.map((option, index) => (
@@ -54,11 +44,15 @@ export default function WriteArticleForm() {
             </Button>
           ))}
         </div>
+        <ErrorMessage error={error} />
         <Button
+          disabled={!article.length || isPending}
           type="submit"
           className="from-light-purple to-dark-purple mt-5 flex w-full gap-4 bg-gradient-to-r"
         >
-          <Hash /> Generate Title
+          <Loading status={isPending}>
+            <Hash /> Generate Title
+          </Loading>
         </Button>
       </form>
     </article>

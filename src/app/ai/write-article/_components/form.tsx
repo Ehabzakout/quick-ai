@@ -3,14 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Sparkles, SquarePen } from "lucide-react";
-import React, { FormEventHandler, useState } from "react";
+import React from "react";
+import useWriteArticle from "../hooks/use-write-article";
+import Loading from "../../_components/loading";
 
 export default function WriteArticleForm() {
-  const options = ["Short (200-400)", "Long (400-800)"];
-  const [selected, setSelected] = useState(options[0]);
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-  };
+  const { selected, setSelected, onSubmit, options, isPending, error, article, setArticle } =
+    useWriteArticle();
   return (
     <article>
       <header className="flex items-center gap-3">
@@ -19,7 +18,13 @@ export default function WriteArticleForm() {
       </header>
       <form onSubmit={onSubmit} className="mt-5">
         <label className="font-medium">Article Topic</label>
-        <Input placeholder="The future of Artificial Intelligence" className="mt-1 mb-4" required />
+        <Input
+          placeholder="The future of Artificial Intelligence"
+          value={article}
+          onChange={(e) => setArticle(e.target.value)}
+          className="mt-1 mb-4"
+          required
+        />
         <label className="text-sm">Article Length</label>
         <div className="mt-2 flex gap-5">
           {options.map((option, index) => (
@@ -37,11 +42,20 @@ export default function WriteArticleForm() {
             </Button>
           ))}
         </div>
+        {error && (
+          <p className="mt-2 rounded-lg bg-red-100 py-1 text-center text-red-600">
+            {error.message}
+          </p>
+        )}
+
         <Button
           type="submit"
+          disabled={!article.length || isPending}
           className="mt-5 flex w-full gap-4 bg-gradient-to-r from-blue-500 to-blue-400"
         >
-          <SquarePen /> Generate Article
+          <Loading status={isPending}>
+            <SquarePen /> Generate Article
+          </Loading>
         </Button>
       </form>
     </article>

@@ -9,6 +9,7 @@ export default function useRemoveBackground() {
 
   const uploadedImg = useRef<HTMLInputElement | null>(null);
   const { getToken } = useAuth();
+
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setLoading(true);

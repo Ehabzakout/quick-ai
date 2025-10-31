@@ -10,6 +10,7 @@ import useRemoveBackground from "../hooks/use-remove-image";
 
 export default function WriteArticleForm() {
   const { error, loading, uploaded, uploadedImg, onSubmit, setUploaded } = useRemoveBackground();
+
   return (
     <article>
       <header className="flex items-center gap-3">

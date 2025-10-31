@@ -16,10 +16,10 @@ export default function useRemoveObject() {
     const file = uploadedImg.current?.files;
 
     if ((file && file.length == 0) || !file) return setError("there is No file chosen");
-    console.log(token);
+
     formData.append("image", file[0]);
     try {
-      const response = await fetch("http://localhost:3000/ai/remove-background", {
+      const response = await fetch("http://localhost:3000/ai/remove-object", {
         method: "POST",
         headers: { authorization: `Bearer ${token}` },
         body: formData,

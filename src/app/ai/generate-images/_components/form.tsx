@@ -3,14 +3,15 @@ import { Button } from "@/components/ui/button";
 
 import { cn } from "@/lib/utils";
 import { Sparkles, Image } from "lucide-react";
-import React, { FormEventHandler, useState } from "react";
+import React from "react";
+import useGenerateImage from "../hooks/use-generate-image";
+import ErrorMessage from "../../_components/error-message";
+import Loading from "../../_components/loading";
 
 export default function WriteArticleForm() {
-  const options = ["Realistic", "Ghibli Style"];
-  const [selected, setSelected] = useState(options[0]);
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-  };
+  const { error, isPending, selected, setSelected, article, setArticle, onSubmit, options } =
+    useGenerateImage();
+
   return (
     <article>
       <header className="flex items-center gap-3">
@@ -19,7 +20,11 @@ export default function WriteArticleForm() {
       </header>
       <form onSubmit={onSubmit} className="mt-5">
         <label className="font-medium">Describe Your Image</label>
-        <textarea className="focus:border-light-green mt-2 h-40 w-full resize-none rounded-md border px-5 py-3 outline-none" />
+        <textarea
+          className="focus:border-light-green mt-2 h-40 w-full resize-none rounded-md border px-5 py-3 outline-none"
+          value={article}
+          onChange={(e) => setArticle(e.target.value)}
+        />
         <label className="text-sm">Style</label>
         <div className="mt-2 flex flex-wrap gap-3">
           {options.map((option, index) => (
@@ -37,11 +42,15 @@ export default function WriteArticleForm() {
             </Button>
           ))}
         </div>
+        <ErrorMessage error={error} />
         <Button
+          disabled={!article.length || isPending}
           type="submit"
           className="to-light-green from-dark-green mt-5 flex w-full gap-4 bg-gradient-to-r"
         >
-          <Image size={20} /> Generate Image
+          <Loading status={isPending}>
+            <Image size={20} /> Generate Image
+          </Loading>
         </Button>
       </form>
     </article>
