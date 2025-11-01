@@ -2,6 +2,7 @@ import Logo from "@/components/common/logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 import React from "react";
 
 function Footer() {
@@ -18,7 +19,9 @@ function Footer() {
         </article>
         <div className="flex flex-col justify-center gap-1 text-zinc-400">
           <h5 className="mx-auto my-2 font-medium text-black">Company</h5>
-          <button>Home</button>
+          <Link href={"/"} className="mx-auto block w-fit cursor-pointer hover:text-black">
+            Home
+          </Link>
           <button>About Us</button>
           <button>Contact Us</button>
           <button>Privacy Policy</button>

@@ -1,20 +1,19 @@
-"use client";
-import { useAuth } from "@clerk/nextjs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FormEventHandler, useRef, useState } from "react";
-import RemoveBackgroundAction from "../action";
+import removeObjectAction from "../action";
 import { toast } from "sonner";
+import reviewResumeAction from "../action";
 
-export default function useRemoveBackground() {
+export default function useReviewResume() {
+  const queryClient = useQueryClient();
   const [uploaded, setUploaded] = useState<FileList | null>(null);
   const uploadedImg = useRef<HTMLInputElement | null>(null);
-  const queryClient = useQueryClient();
-  const { error, isPending, mutate } = useMutation({
-    mutationKey: ["remove-background"],
-    mutationFn: async (formData: FormData) => await RemoveBackgroundAction(formData),
-    onSuccess: (data) => queryClient.setQueriesData({ queryKey: ["remove-background"] }, data),
-  });
 
+  const { error, isPending, mutate } = useMutation({
+    mutationKey: ["review-resume"],
+    mutationFn: async (formData: FormData) => reviewResumeAction(formData),
+    onSuccess: (data) => queryClient.setQueryData(["review-resume"], data),
+  });
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
@@ -23,10 +22,12 @@ export default function useRemoveBackground() {
     const file = uploadedImg.current?.files;
 
     if (file && file.length > 0) {
-      formData.append("image", file[0]);
-      mutate(formData);
-    } else toast.error("You don't upload file");
-  };
+      formData.append("resume", file[0]);
 
-  return { error, isPending, uploaded, uploadedImg, onSubmit, setUploaded };
+      mutate(formData);
+    } else {
+      toast.error("You need to add file");
+    }
+  };
+  return { uploaded, setUploaded, uploadedImg, onSubmit, isPending, error };
 }

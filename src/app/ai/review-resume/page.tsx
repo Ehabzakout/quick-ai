@@ -1,13 +1,14 @@
 import React from "react";
 import AICard from "../_components/ai-card";
-import WriteArticleForm from "./_components/form";
+
 import ArticleCard from "./_components/article-card";
+import ReviewResume from "./_components/form";
 
 function page() {
   return (
     <div className="flex flex-col gap-5 md:flex-row">
       <AICard>
-        <WriteArticleForm />
+        <ReviewResume />
       </AICard>
       <AICard>
         <ArticleCard />

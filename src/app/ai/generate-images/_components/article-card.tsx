@@ -2,6 +2,7 @@
 import { icons } from "@assets/assets";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import Link from "next/link";
 
 function ArticleCard() {
   const { data } = useQuery<{
@@ -13,9 +14,9 @@ function ArticleCard() {
     queryKey: ["generate-image"],
     queryFn: () => null,
   });
-  console.log(data);
+
   return (
-    <div className="min-h-80 px-3 pb-3">
+    <div className="min-h-80 px-3 pb-1">
       <div className="flex items-center gap-4 pb-2">
         {<icons.Image size={20} color={"#00AD25"} />}
         <h4 className="text-lg font-semibold">Generated Image</h4>
@@ -28,13 +29,18 @@ function ArticleCard() {
           </p>
         </div>
       ) : (
-        <Image
-          src={data.content}
-          width={250}
-          height={320}
-          alt="photo"
-          className="size-full rounded-md object-contain"
-        />
+        <div>
+          <Image
+            src={data.content}
+            width={250}
+            height={320}
+            alt="photo"
+            className="size-full rounded-md object-contain"
+          />
+          <Link href={data.content} target="_blank" className="text-blue mt-2 block underline">
+            Open
+          </Link>
+        </div>
       )}
     </div>
   );

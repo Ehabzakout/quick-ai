@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sidebar";
 
 import { Protect, useUser, useClerk } from "@clerk/nextjs";
-import { Home, LogOutIcon, User } from "lucide-react";
+import { Home, LogOutIcon, User, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,10 +26,12 @@ function AiSidebar() {
     { title: "Dashboard", href: "dashboard", icon: Home },
     { title: "Write Article", href: "write-article", icon: SquarePen },
     { title: "Blog Titles", href: "blog-titles", icon: Hash },
+
     { title: "Generate Images", href: "generate-images", icon: imgIcon },
     { title: "Remove Background", href: "remove-background", icon: Eraser },
     { title: "Remove Object", href: "remove-object", icon: Scissors },
     { title: "Review Resume", href: "review-resume", icon: FileText },
+    { title: "Community", href: "community", icon: Users },
   ];
 
   return (

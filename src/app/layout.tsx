@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Providers from "@/components/providers";
+import { Toaster } from "@/components/ui/sonner";
 export const metadata: Metadata = {
   title: "Quick AI",
   icons: {
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${outfit.variable} font-outfit pt-20 antialiased`}>
         <Providers>
+          <Toaster />
           <Header />
           {children}
           <Footer />

@@ -1,35 +1,32 @@
-import { useAuth } from "@clerk/nextjs";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FormEventHandler, useRef, useState } from "react";
+import removeObjectAction from "../action";
+import { toast } from "sonner";
 
 export default function useRemoveObject() {
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
   const [uploaded, setUploaded] = useState<FileList | null>(null);
   const uploadedImg = useRef<HTMLInputElement | null>(null);
-  const { getToken } = useAuth();
+  const [object, setObject] = useState("");
+  const { error, isPending, mutate } = useMutation({
+    mutationKey: ["remove-object"],
+    mutationFn: async (formData: FormData) => removeObjectAction(formData),
+    onSuccess: (data) => queryClient.setQueryData(["remove-object"], data),
+  });
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
+
     const formData = new FormData();
-    const token = await getToken();
+
     const file = uploadedImg.current?.files;
-
-    if ((file && file.length == 0) || !file) return setError("there is No file chosen");
-
-    formData.append("image", file[0]);
-    try {
-      const response = await fetch("http://localhost:3000/ai/remove-object", {
-        method: "POST",
-        headers: { authorization: `Bearer ${token}` },
-        body: formData,
-      });
-      const payload = await response.json();
-    } catch (error) {
-      setError((error instanceof Error && error.message) || "Can't upload photo");
-    } finally {
-      setLoading(false);
+    console.log(file);
+    if (file && file.length > 0 && object.length > 0) {
+      formData.append("image", file[0]);
+      formData.append("object", object);
+      mutate(formData);
+    } else {
+      toast.error("You need to add photo and object to remove");
     }
   };
-  return { uploaded, setUploaded, uploadedImg, onSubmit };
+  return { uploaded, setUploaded, uploadedImg, onSubmit, isPending, error, object, setObject };
 }

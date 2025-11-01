@@ -7,14 +7,14 @@ export default function useGenerateImage() {
   const options = ["Realistic", "Ghibli Style"];
   const [selected, setSelected] = useState(options[0]);
   const [article, setArticle] = useState("");
+  const [publish, setPublish] = useState(false);
 
   const queryClient = useQueryClient();
   const { error, isPending, mutate } = useMutation({
     mutationKey: ["generate-image"],
-    mutationFn: async () => await generateImageAction(article, selected),
+    mutationFn: async () => await generateImageAction(article, selected, publish),
     onSuccess: (data) => {
-      console.log(data);
-      queryClient.setQueryData(["generate-image"], data);
+      queryClient.setQueriesData({ queryKey: ["generate-image"] }, data);
     },
   });
 
@@ -22,5 +22,16 @@ export default function useGenerateImage() {
     e.preventDefault();
     mutate();
   };
-  return { selected, setSelected, onSubmit, options, isPending, error, article, setArticle };
+  return {
+    selected,
+    setSelected,
+    onSubmit,
+    options,
+    isPending,
+    error,
+    article,
+    setArticle,
+    publish,
+    setPublish,
+  };
 }

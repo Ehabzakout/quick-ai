@@ -7,10 +7,21 @@ import React from "react";
 import useGenerateImage from "../hooks/use-generate-image";
 import ErrorMessage from "../../_components/error-message";
 import Loading from "../../_components/loading";
+import { Switch } from "@/components/ui/switch";
 
 export default function WriteArticleForm() {
-  const { error, isPending, selected, setSelected, article, setArticle, onSubmit, options } =
-    useGenerateImage();
+  const {
+    error,
+    isPending,
+    selected,
+    setSelected,
+    article,
+    setArticle,
+    onSubmit,
+    options,
+    publish,
+    setPublish,
+  } = useGenerateImage();
 
   return (
     <article>
@@ -41,6 +52,10 @@ export default function WriteArticleForm() {
               {option}
             </Button>
           ))}
+        </div>
+        <div className="my-3 flex items-center gap-3">
+          <label>Publish</label>
+          <Switch onCheckedChange={() => setPublish(!publish)} checked={publish} />
         </div>
         <ErrorMessage error={error} />
         <Button

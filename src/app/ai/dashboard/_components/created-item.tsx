@@ -1,18 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-function CreatedItem({
-  title,
-  text,
-  type,
-  date,
-}: {
-  title: string;
-  text: string;
-  type: string;
-  date: string;
-}) {
+import Markdown from "react-markdown";
+function CreatedItem({ ...prop }: Creation) {
   const [show, setShow] = useState(false);
   const contentRef = useRef<HTMLParagraphElement | null>(null);
 
@@ -28,25 +20,33 @@ function CreatedItem({
   }, [show]);
 
   return (
-    <div className="flex w-5/6 justify-between rounded-lg bg-white p-5">
+    <div className="flex w-5/6 justify-between gap-3 rounded-lg bg-white p-5">
       <div>
-        <h4 className="text-sm font-medium">{title}</h4>
-        <p
+        <h4 className="line-clamp-1 text-sm font-medium">{prop.prompt}</h4>
+        <div
           ref={contentRef}
           data-show={show}
           className="h-0 overflow-hidden transition-all duration-300 data-[show=true]:my-5"
         >
-          {text}
-        </p>
-        <p className="text-sm text-zinc-400 capitalize">
-          {type} - {new Date(date).toDateString()}
-        </p>
+          {prop.type === "image" ? (
+            <Image
+              src={prop.content}
+              alt="photo"
+              width={150}
+              height={150}
+              className="size-40 rounded-lg object-contain"
+            />
+          ) : (
+            <Markdown>{prop.content}</Markdown>
+          )}
+        </div>
+        <p className="text-sm text-zinc-400 capitalize">{prop.type}</p>
       </div>
       <Button
-        className="w-20 rounded-full bg-blue-100 text-purple-900 hover:bg-blue-200"
+        className="w-20 rounded-full bg-blue-100 text-[12px] text-purple-900 hover:bg-blue-200"
         onClick={() => setShow(!show)}
       >
-        {show ? "Close" : type}
+        {show ? "Close" : prop.type}
       </Button>
     </div>
   );

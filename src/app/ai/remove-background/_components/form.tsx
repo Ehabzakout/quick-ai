@@ -7,9 +7,10 @@ import React from "react";
 
 import Loading from "../../_components/loading";
 import useRemoveBackground from "../hooks/use-remove-image";
+import ErrorMessage from "../../_components/error-message";
 
 export default function WriteArticleForm() {
-  const { error, loading, uploaded, uploadedImg, onSubmit, setUploaded } = useRemoveBackground();
+  const { error, isPending, uploaded, uploadedImg, onSubmit, setUploaded } = useRemoveBackground();
 
   return (
     <article>
@@ -59,16 +60,14 @@ export default function WriteArticleForm() {
           </Button>
         </div>
         <p className="text-[12px] text-zinc-400">Supports JPG, PNG, and JPEG</p>
-        {error && (
-          <p className="mt-2 rounded-lg bg-red-100 py-1 text-center text-red-600">{error}</p>
-        )}
+        <ErrorMessage error={error} />
 
         <Button
-          disabled={uploaded?.length && uploaded?.length > 0 ? false : true || !loading}
+          disabled={uploaded?.length && uploaded?.length > 0 ? false : true || !isPending}
           type="submit"
           className="to-dark-orang from-light-orange mt-5 flex w-full gap-4 bg-gradient-to-r"
         >
-          <Loading status={loading}>
+          <Loading status={isPending}>
             <Eraser size={20} /> Remove Background
           </Loading>
         </Button>
