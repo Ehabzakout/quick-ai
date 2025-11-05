@@ -61,7 +61,7 @@ export default function CreationItem({ ...prop }: Creation) {
             color={liked ? "#f00" : "white"}
             className={cn("transition-all duration-250", puls && "scale-[1.2]")}
             onClick={() => react()}
-            fill={liked ? "#f00" : ""}
+            fill={liked ? "#f00" : "transparent"}
           />
         </div>
       </div>

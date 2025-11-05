@@ -17,7 +17,7 @@ function ArticleCard() {
   });
 
   return (
-    <div className="h-96">
+    <div className="min-h-96">
       <div className="mb-3 flex items-center gap-4">
         {<icons.Scissors size={20} color={"##437AF5"} />}
         <h4 className="text-lg font-semibold">Processed Image</h4>
@@ -28,13 +28,13 @@ function ArticleCard() {
           <p className="text-sm text-zinc-400">Upload an image and describe what to remove</p>
         </div>
       ) : (
-        <div>
+        <div className="size-full">
           <Image
             src={data.image}
             width={250}
             height={320}
             alt="photo"
-            className="size-full rounded-md object-contain"
+            className="w-full rounded-md object-contain"
           />
           <Link href={data.image} target="_blank" className="text-blue mt-2 block underline">
             Open
